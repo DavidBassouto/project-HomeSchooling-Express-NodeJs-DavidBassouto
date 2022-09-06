@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL="postgres://kaehm:123456@db:5432/home_schooling"
+      - SECRET_KEY=293192dko120d1
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+
+  db:
+    container_name: database
+    image: postgres:14
+    ports:
+      - 5430:5432
+    environment:
+      - POSTGRES_USER=kaehm
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=home_schooling
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kaehm -d home_schooling"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
