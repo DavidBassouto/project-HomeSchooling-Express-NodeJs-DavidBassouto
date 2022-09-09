@@ -20,13 +20,15 @@ const createGuardianService = async ({
     throw new AppError(409, "Email already exists");
   }
 
-  const guardian = await guardianRepository.save({
+  const guardian = guardianRepository.create({
     id: uuid(),
     name,
     email,
     password: hashSync(password, 10),
     cellNumber,
   });
+
+  await guardianRepository.save(guardian);
 
   return guardian;
 };
