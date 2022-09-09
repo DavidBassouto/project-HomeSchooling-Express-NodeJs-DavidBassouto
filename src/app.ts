@@ -2,9 +2,11 @@ import "reflect-metadata";
 import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 import { AppError } from "./errors/AppError";
+import { appRoutes } from "./routes";
 
 const app = express();
 app.use(express.json());
+appRoutes(app);
 
 app.use(
   (err: Error, resquest: Request, response: Response, _: NextFunction) => {
