@@ -4,7 +4,7 @@ import { hashSync } from "bcrypt";
 import AppDataSource from "../../data-source";
 import Guardian from "../../entities/guardian.entity";
 import { AppError } from "../../errors/AppError";
-import { IGuardianReq } from "../../interfaces/guardian.interfaces";
+import { IGuardianReq } from "../../interfaces/guardians";
 
 const createGuardianService = async ({
   name,

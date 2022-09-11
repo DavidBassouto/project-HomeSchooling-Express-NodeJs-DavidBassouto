@@ -4,7 +4,7 @@ import createGuardianController from "../controllers/guardians/createGuardian.co
 const routes = Router();
 
 export const guardianRoutes = () => {
-  routes.post("/", createGuardianController);
+  routes.post("", createGuardianController);
 
   return routes;
 };
