@@ -4,3 +4,8 @@ export interface IGuardianReq {
   password: string;
   cellNumber: string;
 }
+
+export interface IGuardianLogin {
+  email: string
+  password: string
+}
