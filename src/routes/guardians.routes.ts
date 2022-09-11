@@ -5,7 +5,7 @@ import createGuardianSessionController from "../controllers/guardians/createGuar
 const routes = Router();
 
 export const guardianRoutes = () => {
-  routes.post("/", createGuardianController);
+  routes.post("", createGuardianController);
   routes.post("/login", createGuardianSessionController);
 
   return routes;
