@@ -4,13 +4,12 @@ import teacherCreateController from "../controllers/teachers/teacherCreate.contr
 import teacherListAllController from "../controllers/teachers/teacherListAll.controller";
 import teacherLonginController from "../controllers/teachers/teacherLogin.contoller";
 
-const routes = Router()
+const routes = Router();
 
 export const teacherRoutes = () => {
+  routes.post("", teacherCreateController);
+  routes.post("/login", teacherLonginController);
+  routes.get("", teacherListAllController);
 
-    routes.post("/teachers", teacherCreateController)
-    routes.post("/teachers/login", teacherLonginController)
-    routes.get("/teacher", teacherListAllController)
-
-    return routes
-}
+  return routes;
+};
