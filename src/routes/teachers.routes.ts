@@ -5,16 +5,18 @@ import teacherDeleteController from "../controllers/teachers/teacherDelete.contr
 import teacherListAllController from "../controllers/teachers/teacherListAll.controller";
 import teacherListByIdController from "../controllers/teachers/teacherListById.controller";
 import teacherLonginController from "../controllers/teachers/teacherLogin.contoller";
+import teacherUpdateController from "../controllers/teachers/teacherUpdate.controller";
 
-const routes = Router()
+const routes = Router();
 
 export const teacherRoutes = () => {
 
-    routes.post("/teachers", teacherCreateController)
-    routes.post("/teachers/login", teacherLonginController)
-    routes.get("/teachers", teacherListAllController)
-    routes.get("/teachers/:id", teacherListByIdController)
-    routes.delete("/teachers/:id", teacherDeleteController)
+    routes.post("", teacherCreateController)
+    routes.post("/login", teacherLonginController)
+    routes.get("", teacherListAllController)
+    routes.get("/:id", teacherListByIdController)
+    routes.delete("/:id", teacherDeleteController)
+    routes.patch("/:id", teacherUpdateController);
 
     return routes
 }

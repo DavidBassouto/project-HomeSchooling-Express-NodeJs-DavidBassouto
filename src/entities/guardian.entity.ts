@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Exclude } from "class-transformer";
 
 @Entity("guardians")
 class Guardian {
@@ -10,6 +11,10 @@ class Guardian {
 
   @Column({ unique: true })
   email: string;
+
+  @Column()
+  @Exclude({ toPlainOnly: true })
+  password: string;
 
   @Column({ nullable: true })
   cellNumber: string;
