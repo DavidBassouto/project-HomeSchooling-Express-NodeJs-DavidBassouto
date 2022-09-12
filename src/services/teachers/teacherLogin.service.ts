@@ -8,9 +8,11 @@ import jwt from "jsonwebtoken";
 
 export const teacherLoginService = async( data: ITeacherLogin ) => {
     const teacherRepository = AppDataSource.getRepository(Teacher)
-    const teachers = await teacherRepository.find()
-
-    const teacherAccount = teachers.find( teacher => teacher.email === data.email)
+    const teacherAccount = await teacherRepository.findOne({
+        where:{
+            email: data.email
+        }
+    })
 
     if(!teacherAccount){
         throw new AppError(403, "Wrong email/password")
@@ -20,13 +22,15 @@ export const teacherLoginService = async( data: ITeacherLogin ) => {
         throw new AppError(401, "This account is no longer active")
     }
 
-    if(!bcrypt.compareSync(data.password, teacherAccount.password)){
+    const passwordMatch = bcrypt.compareSync(data.password, teacherAccount.password)
+
+    if(!passwordMatch){
         throw new AppError(403, "Wrong email/password")
     }
 
 
     const token = jwt.sign(
-        {email: data.email},
+        {email: teacherAccount.email},
         "SECRET_KEY",
         {expiresIn: "1d", subject: teacherAccount.id}
     ) 
