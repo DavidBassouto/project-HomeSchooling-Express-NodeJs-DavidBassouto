@@ -8,7 +8,7 @@ const teacherCreateController = async( req: Request, res: Response) => {
     try {
         const data = req.body
         const newTeacher = await teacherCreateService(data)
-
+       
         return res.status(201).json(instanceToPlain(newTeacher))
         
     } catch (err) {
