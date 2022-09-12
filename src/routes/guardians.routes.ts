@@ -2,6 +2,7 @@ import { Router } from "express";
 import createGuardianController from "../controllers/guardians/createGuardian.controller";
 import createGuardianSessionController from "../controllers/guardians/createGuardianSession.controller";
 import createStudentController from "../controllers/guardians/createStudent.controller";
+import listGuardianAndStudentsController from "../controllers/guardians/listGuardianStudent.controller";
 import updateGuardianController from "../controllers/guardians/updateGuardian.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 
@@ -12,6 +13,7 @@ export const guardianRoutes = () => {
   routes.post("/login", createGuardianSessionController);
   routes.patch("/:id", ensureAuthMiddleware, updateGuardianController);
   routes.post("/students", ensureAuthMiddleware, createStudentController);
+  routes.get("/:guardianId", listGuardianAndStudentsController);
 
   return routes;
 };
