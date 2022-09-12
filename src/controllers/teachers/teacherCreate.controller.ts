@@ -7,6 +7,7 @@ import { instanceToPlain } from "class-transformer"
 const teacherCreateController = async( req: Request, res: Response) => {
     try {
         const data = req.body
+        console.log(data)
         const newTeacher = await teacherCreateService(data)
        
         return res.status(201).json(instanceToPlain(newTeacher))

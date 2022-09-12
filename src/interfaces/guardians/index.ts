@@ -6,13 +6,13 @@ export interface IGuardianReq {
 }
 
 export interface IGuardianLogin {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 
 export interface IGuardianUpdateReq {
-  name?: string
-  email?: string
-  password?: string
-  cellNumber?: string
+  name: string;
+  email: string;
+  password: string;
+  cellNumber: string;
 }
