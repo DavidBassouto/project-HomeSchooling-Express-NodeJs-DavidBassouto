@@ -12,8 +12,8 @@ const verifyIdMiddleware = (
 
   if (!compareIds) {
     return res.status(401).json({
-        message: "Invalid token",
-      })
+      message: "Id provided is not authorized",
+    });
   }
   next();
 };
