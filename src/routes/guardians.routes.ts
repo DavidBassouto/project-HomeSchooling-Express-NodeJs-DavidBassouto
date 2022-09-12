@@ -4,6 +4,7 @@ import createGuardianSessionController from "../controllers/guardians/createGuar
 import createStudentController from "../controllers/guardians/createStudent.controller";
 import listGuardianAndStudentsController from "../controllers/guardians/listGuardianStudent.controller";
 import updateGuardianController from "../controllers/guardians/updateGuardian.controller";
+import updateStudentController from "../controllers/guardians/updateStudent.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 import verifyIdMiddleware from "../middlewares/verifyId.middleware";
 
@@ -12,9 +13,24 @@ const routes = Router();
 export const guardianRoutes = () => {
   routes.post("", createGuardianController);
   routes.post("/login", createGuardianSessionController);
-  routes.patch("/:id", ensureAuthMiddleware,verifyIdMiddleware, updateGuardianController);
+  routes.patch(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    updateGuardianController
+  );
   routes.post("/students", ensureAuthMiddleware, createStudentController);
-  routes.get("/:id",ensureAuthMiddleware,verifyIdMiddleware, listGuardianAndStudentsController);
+  routes.get(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    listGuardianAndStudentsController
+  );
+  routes.patch(
+    "/students/:studentId",
+    ensureAuthMiddleware,
+    updateStudentController
+  );
 
   return routes;
 };
