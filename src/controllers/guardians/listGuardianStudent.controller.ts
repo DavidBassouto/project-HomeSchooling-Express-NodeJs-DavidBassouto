@@ -6,9 +6,9 @@ const listGuardianAndStudentsController = async (
   req: Request,
   res: Response
 ) => {
-  const { guardianId } = req.params;
+  const { id } = req.params;
 
-  const guardianData = await listGuardianAndStudentsService(guardianId);
+  const guardianData = await listGuardianAndStudentsService(id);
 
   return res.json(instanceToPlain(guardianData));
 };

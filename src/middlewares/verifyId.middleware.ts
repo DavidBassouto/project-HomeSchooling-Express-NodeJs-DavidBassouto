@@ -7,7 +7,8 @@ const verifyIdMiddleware = (
 ) => {
   const idUser = req.user.id;
   const { id } = req.params;
-
+  console.log(idUser + "          USERRRRRRRRRRRRRRR");
+  console.log(id + "          PARAMMMMSSSS");
   const compareIds = id === idUser;
 
   if (!compareIds) {
