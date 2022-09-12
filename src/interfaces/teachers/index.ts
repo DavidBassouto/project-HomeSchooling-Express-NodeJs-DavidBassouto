@@ -1,4 +1,5 @@
 export interface ITeacherCreate {
+    id: string
     name: string
     email: string
     password: string
@@ -9,4 +10,12 @@ export interface ITeacherCreate {
 export interface ITeacherLogin {
     email: string
     password: string
+}
+
+export interface ITeacherUpdate {
+    name: string
+    email: string
+    password: string
+    subject: string
+    bio: string
 }

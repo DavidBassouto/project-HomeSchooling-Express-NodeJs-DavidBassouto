@@ -1,6 +1,5 @@
 import { v4 as uuid } from "uuid";
 import { hashSync } from "bcrypt";
-
 import AppDataSource from "../../data-source";
 import Guardian from "../../entities/guardian.entity";
 import { AppError } from "../../errors/AppError";
