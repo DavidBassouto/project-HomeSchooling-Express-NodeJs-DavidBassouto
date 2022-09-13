@@ -53,8 +53,10 @@ export const teacherAddStudentService = async(
         throw new AppError(401, "Teacher must own the class in order to add students")
     }
 
-    classroom.students = [...classroom.students, student]
+   
 
+    classroom.students = [...classroom.students, student]
+    
     await classRepository.save(classroom)
 
     return classroom.students

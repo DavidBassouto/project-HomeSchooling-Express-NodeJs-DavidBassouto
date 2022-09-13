@@ -7,6 +7,7 @@ import teacherListAllController from "../controllers/teachers/teacherListAll.con
 import teacherListByIdController from "../controllers/teachers/teacherListById.controller";
 import teacherLonginController from "../controllers/teachers/teacherLogin.contoller";
 import teacherUpdateController from "../controllers/teachers/teacherUpdate.controller";
+import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
 
 const routes = Router();
 
@@ -18,7 +19,7 @@ export const teacherRoutes = () => {
     routes.get("/:id", teacherListByIdController)
     routes.delete("/:id", teacherDeleteController)
     routes.patch("/:id", teacherUpdateController)
-    routes.post("/:id", teacherAddStudentController)
+    routes.post("/:id",ensureAuthMiddleware, teacherAddStudentController)
 
     return routes
 }
