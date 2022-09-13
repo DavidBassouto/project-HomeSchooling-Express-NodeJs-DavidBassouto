@@ -4,3 +4,8 @@ export interface IStudentsCreate {
   password: string;
   age?: number;
 }
+
+export interface IStudentsLogin {
+  email: string;
+  password: string;
+}
