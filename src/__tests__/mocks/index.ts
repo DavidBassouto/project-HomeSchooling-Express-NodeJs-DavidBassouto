@@ -1,6 +1,7 @@
 import { ITeacherCreate, ITeacherLogin } from "../../interfaces/teachers";
-import { IStudentsCreate } from "../../interfaces/students";
+import { IStudentsCreate, IStudentsLogin } from "../../interfaces/students";
 import { IGuardianLogin, IGuardianReq } from "../../interfaces/guardians";
+import { IClassCreate } from "../../interfaces/classes";
 
 interface ITeacherUpdateTest {
   name?: string;
@@ -24,6 +25,12 @@ interface IStudentUpdateTest {
   age?: number;
 }
 
+interface IClassUpdateTest {
+  name?: string;
+  hour?: string;
+  isOpen?: boolean;
+}
+
 export const mockedTeacher: ITeacherCreate = {
   name: "Felipe",
   email: "felipe@kenzie.com",
@@ -32,8 +39,21 @@ export const mockedTeacher: ITeacherCreate = {
   bio: "Projeto HomeSchooling",
 };
 
+export const mockedSecondTeacher: ITeacherCreate = {
+  name: "Felipe2",
+  email: "felipe2@kenzie.com",
+  password: "123456",
+  subject: "Node JS",
+  bio: "Projeto HomeSchooling",
+};
+
 export const mockedTeacherLogin: ITeacherLogin = {
   email: "felipe@kenzie.com",
+  password: "123456",
+};
+
+export const mockedSecondTeacherLogin: ITeacherLogin = {
+  email: "felipe2@kenzie.com",
   password: "123456",
 };
 
@@ -51,6 +71,16 @@ export const mockedStudent: IStudentsCreate = {
   email: "felipejr@kenzie.com",
   password: "123456",
   age: 12,
+};
+
+export const mockedStudentLogin: IStudentsLogin = {
+  email: "felipejr@kenzie.com",
+  password: "123456",
+};
+
+export const mockedStudentInvalidLogin: IStudentsLogin = {
+  email: "felipejr@kenzie.com",
+  password: "12345",
 };
 
 export const mockedUpdateStudent: IStudentUpdateTest = {
@@ -94,6 +124,11 @@ export const mockedGuadianLogin: IGuardianLogin = {
   password: "123456",
 };
 
+export const mockedGuadianInvalidLogin: IGuardianLogin = {
+  email: "pai@kenzie.com",
+  password: "12345",
+};
+
 export const mockedSecondGuadianLogin: IGuardianLogin = {
   email: "pai2@kenzie.com",
   password: "123456",
@@ -102,4 +137,13 @@ export const mockedSecondGuadianLogin: IGuardianLogin = {
 export const mockedThirdGuadianLogin: IGuardianLogin = {
   email: "pai3@kenzie.com",
   password: "123456",
+};
+
+export const mockedClass: IClassCreate = {
+  name: "Classe A",
+  hour: "09:00",
+};
+
+export const mockedUpdateClass: IClassUpdateTest = {
+  isOpen: false,
 };
