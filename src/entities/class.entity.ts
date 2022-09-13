@@ -24,10 +24,10 @@ class Class {
   @Column({ default: true })
   isOpen: boolean;
 
-  @ManyToOne(() => Teacher)
+  @ManyToOne(() => Teacher, {eager: true})
   teacher: Teacher;
 
-  @ManyToMany(() => Student)
+  @ManyToMany(() => Student, {eager: true})
   @JoinTable()
   students: Student[];
 }

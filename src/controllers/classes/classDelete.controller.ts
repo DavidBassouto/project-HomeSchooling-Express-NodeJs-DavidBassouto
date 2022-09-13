@@ -8,7 +8,7 @@ export const classDeleteController = async( req: Request, res: Response) => {
 
         const deletedClass = await classDeleteService(id)
 
-        res.status(200).send(deletedClass)
+        res.status(200).send({message: "Class has been deleted"})
     } catch (err) {
         if(err instanceof AppError){
             handleError(err, res)
