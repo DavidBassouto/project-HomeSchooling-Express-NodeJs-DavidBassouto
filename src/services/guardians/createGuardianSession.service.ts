@@ -23,7 +23,8 @@ const createGuardianSessionService = async (
     throw new AppError(403, "Wrong email/password");
   }
 
-  const token = jwt.sign({ email: guardian.email }, process.env.SECRET_KEY!, {
+  const token = jwt.sign({ email: guardian.email }, process.env.SECRET_KEY!, 
+    {
     expiresIn: "1d",
     subject: guardian.id,
   });
