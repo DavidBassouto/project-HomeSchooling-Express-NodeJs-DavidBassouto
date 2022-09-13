@@ -20,6 +20,11 @@ export const teacherAddStudentService = async(
         }
     })
 
+    const studentAlreadyExistis= classroom?.students.find(e=> e.email=== studentEmail)
+    if(studentAlreadyExistis){
+        throw new AppError(401, "Student already in the Class")
+    }
+
     const student = await studentRepository.findOne({
         where:{
             email: studentEmail
