@@ -10,6 +10,20 @@ interface ITeacherUpdateTest {
   bio?: string;
 }
 
+interface IGuardianUpdateTest {
+  name?: string;
+  email?: string;
+  password?: string;
+  cellNumber?: string;
+}
+
+interface IStudentUpdateTest {
+  name?: string;
+  email?: string;
+  password?: string;
+  age?: number;
+}
+
 export const mockedTeacher: ITeacherCreate = {
   name: "Felipe",
   email: "felipe@kenzie.com",
@@ -39,6 +53,10 @@ export const mockedStudent: IStudentsCreate = {
   age: 12,
 };
 
+export const mockedUpdateStudent: IStudentUpdateTest = {
+  age: 13,
+};
+
 export const mockedSecondStudent: IStudentsCreate = {
   name: "João",
   email: "joão@kenzie.com",
@@ -53,7 +71,35 @@ export const mockedGuadian: IGuardianReq = {
   cellNumber: "998765432",
 };
 
+export const mockedSecondGuardian: IGuardianReq = {
+  name: "Pai2",
+  email: "pai2@kenzie.com",
+  password: "123456",
+  cellNumber: "998765432",
+};
+
+export const mockedThirdGuardian: IGuardianReq = {
+  name: "Pai3",
+  email: "pai3@kenzie.com",
+  password: "123456",
+  cellNumber: "998765432",
+};
+
+export const mockedUpdateGuadian: IGuardianUpdateTest = {
+  cellNumber: "234567899",
+};
+
 export const mockedGuadianLogin: IGuardianLogin = {
-  email: "felipe@kenzie.com",
+  email: "pai@kenzie.com",
+  password: "123456",
+};
+
+export const mockedSecondGuadianLogin: IGuardianLogin = {
+  email: "pai2@kenzie.com",
+  password: "123456",
+};
+
+export const mockedThirdGuadianLogin: IGuardianLogin = {
+  email: "pai3@kenzie.com",
   password: "123456",
 };
