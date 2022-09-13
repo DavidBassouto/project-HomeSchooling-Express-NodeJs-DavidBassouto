@@ -1,4 +1,5 @@
 import { Router } from "express";
+import teacherAddStudentController from "../controllers/teachers/teacherAddStudent.controller";
 
 import teacherCreateController from "../controllers/teachers/teacherCreate.controller";
 import teacherDeleteController from "../controllers/teachers/teacherDelete.controller";
@@ -16,7 +17,8 @@ export const teacherRoutes = () => {
     routes.get("", teacherListAllController)
     routes.get("/:id", teacherListByIdController)
     routes.delete("/:id", teacherDeleteController)
-    routes.patch("/:id", teacherUpdateController);
+    routes.patch("/:id", teacherUpdateController)
+    routes.post("/:id", teacherAddStudentController)
 
     return routes
 }
