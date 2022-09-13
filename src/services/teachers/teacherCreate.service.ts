@@ -2,6 +2,7 @@ import { ITeacherCreate } from "../../interfaces/teachers";
 import AppDataSource from "../../data-source";
 import Teacher from "../../entities/teacher.entity";
 import bcrypt from "bcrypt"
+import {v4 as uuid} from "uuid"
 import { AppError } from "../../errors/AppError";
 
 const teacherCreateService = async ( data: ITeacherCreate) => {
@@ -14,6 +15,7 @@ const teacherCreateService = async ( data: ITeacherCreate) => {
     }
 
     const newTeacher = new Teacher()
+    newTeacher.id = uuid()
     newTeacher.name = data.name
     newTeacher.email = data.email
     newTeacher.password = bcrypt.hashSync( data.password, 10)
