@@ -4,7 +4,9 @@ import createGuardianSessionController from "../controllers/guardians/createGuar
 import createStudentController from "../controllers/guardians/createStudent.controller";
 import deleteStudentController from "../controllers/guardians/deleteStudent.controller";
 import { listAllGuardiansController } from "../controllers/guardians/listAllGuardians.controller";
+import { listAllStudentsController } from "../controllers/guardians/listAllStudents.controller";
 import listGuardianAndStudentsController from "../controllers/guardians/listGuardianStudent.controller";
+import  listStudentAndClassController  from "../controllers/guardians/listStudentAndClass.controller";
 import updateGuardianController from "../controllers/guardians/updateGuardian.controller";
 import updateStudentController from "../controllers/guardians/updateStudent.controller";
 import { ensureAuthMiddleware } from "../middlewares/ensureAuth.middleware";
@@ -33,9 +35,8 @@ export const guardianRoutes = () => {
   );
   routes.get("", listAllGuardiansController)
   routes.get("/:id",ensureAuthMiddleware,verifyIdMiddleware, listGuardianAndStudentsController);
-
-
-
+  routes.get("/students/list", listAllStudentsController)
+  routes.get("/student/list/:id",ensureAuthMiddleware, listStudentAndClassController)
 
   return routes;
 };
