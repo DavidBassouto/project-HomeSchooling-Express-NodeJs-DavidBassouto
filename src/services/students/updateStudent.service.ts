@@ -25,7 +25,7 @@ const updateStudentService = async (
   const student = students.find((student) => student.id === studentId);
 
   if (!student) {
-    throw new AppError(404, "Student not found");
+    throw new AppError(401, "Student not found");
   }
 
   await studentRepository.update(

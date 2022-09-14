@@ -34,15 +34,13 @@ describe("/guardians", () => {
 
   test("POST /guardians -  Must be able to create a guardian", async () => {
     const response = await request(app)
-      .post("/guardian")
+      .post("/guardians")
       .send(mockedThirdGuardian);
 
     expect(response.body).toHaveProperty("id");
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("cellNumber");
-    expect(response.body).toHaveProperty("createdAt");
-    expect(response.body).toHaveProperty("updatedAt");
     expect(response.body).not.toHaveProperty("password");
     expect(response.body.name).toEqual("Pai3");
     expect(response.body.email).toEqual("pai3@kenzie.com");
@@ -55,7 +53,7 @@ describe("/guardians", () => {
       .send(mockedThirdGuardian);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(409);
   });
 
   test("GET /guardians -  Must be able to list all guardians", async () => {
@@ -122,8 +120,6 @@ describe("/guardians", () => {
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("cellNumber");
-    expect(response.body).toHaveProperty("createdAt");
-    expect(response.body).toHaveProperty("updatedAt");
     expect(response.body).not.toHaveProperty("password");
     expect(response.body.cellNumber).toEqual("234567899");
     expect(response.status).toBe(200);
@@ -154,7 +150,7 @@ describe("/guardians", () => {
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
   });
 
   test("PATCH /guardians/:idGuardian -  Should not be able to update a guardians with unauthorized token", async () => {
@@ -166,7 +162,7 @@ describe("/guardians", () => {
       .set("Authorization", `Bearer`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(401);
   });
 
   test("DELETE /guardians/:idGuardian -  Should not be able to delete a guardian with unauthorized token", async () => {
@@ -190,7 +186,7 @@ describe("/guardians", () => {
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
   });
 
   test("DELETE /guardians/:idGuardian -  Should not be able that other guardians delete a different guardian", async () => {
@@ -219,8 +215,7 @@ describe("/guardians", () => {
       .delete("/guardians/" + guardians.body[0].id)
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 
   test("POST /guardians/students -  Must be able to create a students", async () => {
@@ -256,7 +251,7 @@ describe("/guardians", () => {
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(409);
   });
 
   test("POST  /guardians/students -  Should not be able to create a students with unauthorized token", async () => {
@@ -269,7 +264,7 @@ describe("/guardians", () => {
     expect(response.status).toBe(401);
   });
 
-  test("PATCH /guardians/students/:idStudent -  Must be able to update a student", async () => {
+  test("PATCH /students/:idStudent -  Must be able to update a student", async () => {
     const guardianLoginResponse = await request(app)
       .post("/guardians/login")
       .send(mockedSecondGuardian);
@@ -277,7 +272,7 @@ describe("/guardians", () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .patch("/guardians/students/" + students.body[0].id)
+      .patch("/students/" + students.body[0].id)
       .send(mockedUpdateStudent)
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
@@ -292,7 +287,7 @@ describe("/guardians", () => {
     expect(response.status).toBe(200);
   });
 
-  test("PATCH /guardians/students/:idStudent -  Should not be able that other guardians update a different student", async () => {
+  test("PATCH /students/:idStudent -  Should not be able that other guardians update a different student", async () => {
     const guardianLoginResponse = await request(app)
       .post("/guardians/login")
       .send(mockedThirdGuardian);
@@ -300,7 +295,7 @@ describe("/guardians", () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .patch("/guardians/students/" + students.body[0].id)
+      .patch("/students/" + students.body[0].id)
       .send(mockedUpdateStudent)
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
@@ -308,11 +303,11 @@ describe("/guardians", () => {
     expect(response.status).toBe(401);
   });
 
-  test("PATCH /guardians/students/:idStudent -  Should not be able to create a students with unauthorized token", async () => {
+  test("PATCH /students/:idStudent -  Should not be able to create a students with unauthorized token", async () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .patch("/guardians/students/" + students.body[0].id)
+      .patch("/students/" + students.body[0].id)
       .send(mockedUpdateStudent)
       .set("Authorization", `Bearer`);
 
@@ -320,31 +315,31 @@ describe("/guardians", () => {
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /guardians/students/:idStudent -  Should not be able to delete a student with unauthorized token", async () => {
+  test("DELETE /students/:idStudent -  Should not be able to delete a student with unauthorized token", async () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .delete("/guardians/students/" + students.body[0].id)
+      .delete("/students/" + students.body[0].id)
       .set("Authorization", `Bearer`);
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /guardians/students/:idStudent -  Should not be able to delete a student that not exists", async () => {
+  test("DELETE /students/:idStudent -  Should not be able to delete a student that not exists", async () => {
     const guardianLoginResponse = await request(app)
       .post("/guardians/login")
       .send(mockedSecondGuardian);
 
     const response = await request(app)
-      .delete("/guardians/students/1")
+      .delete("/students/1")
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /guardians/students/:idStudent -  Should not be able that other guardians delete a different student", async () => {
+  test("DELETE /students/:idStudent -  Should not be able that other guardians delete a different student", async () => {
     const guardianLoginResponse = await request(app)
       .post("/guardians/login")
       .send(mockedThirdGuardian);
@@ -352,14 +347,14 @@ describe("/guardians", () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .delete("/guardians/students/" + students.body[0].id)
+      .delete("/students/" + students.body[0].id)
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(401);
   });
 
-  test("DELETE /guardians/students/:idStudent -  Must be able do delete a student", async () => {
+  test("DELETE /students/:idStudent -  Must be able do delete a student", async () => {
     const guardianLoginResponse = await request(app)
       .post("/guardians/login")
       .send(mockedSecondGuardian);
@@ -367,10 +362,9 @@ describe("/guardians", () => {
     const students = await request(app).get("/students");
 
     const response = await request(app)
-      .delete("/guardians/students/" + students.body[0].id)
+      .delete("/students/" + students.body[0].id)
       .set("Authorization", `Bearer ${guardianLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 });

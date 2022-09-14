@@ -6,8 +6,7 @@ import bcrypt from "bcrypt";
 
 export const teacherUpdateService = async (
   id: string,
-  data: ITeacherUpdate,
-  userId: string
+  data: ITeacherUpdate
 ) => {
   const teacherRepository = AppDataSource.getRepository(Teacher);
   const teacher = await teacherRepository.findOne({
@@ -15,10 +14,6 @@ export const teacherUpdateService = async (
       id,
     },
   });
-
-  if (id !== userId) {
-    throw new AppError(401, "User not authorized");
-  }
 
   if (!teacher) {
     throw new AppError(404, "Teacher was not found");

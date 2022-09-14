@@ -47,7 +47,7 @@ describe("/sessions", () => {
       .send(mockedGuadianLogin);
 
     expect(response.body).toHaveProperty("token");
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
   });
 
   test("POST /guardians/login -  Should not be able to login as a guardian with invalid login", async () => {
@@ -56,7 +56,7 @@ describe("/sessions", () => {
       .send(mockedGuadianInvalidLogin);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(403);
   });
 
   test("POST /students/login -  Must be able to login as a student", async () => {
@@ -65,7 +65,7 @@ describe("/sessions", () => {
       .send(mockedStudentLogin);
 
     expect(response.body).toHaveProperty("token");
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
   });
 
   test("POST /students/login -  Should not be able to login as a student with invalid login", async () => {
@@ -74,7 +74,7 @@ describe("/sessions", () => {
       .send(mockedStudentInvalidLogin);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(403);
   });
 
   test("POST /teachers/login -  Must be able to login as a teacher", async () => {
@@ -83,7 +83,7 @@ describe("/sessions", () => {
       .send(mockedTeacherLogin);
 
     expect(response.body).toHaveProperty("token");
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
   });
 
   test("POST /teachers/login -  Should not be able to login as a teacher with invalid login", async () => {
@@ -92,6 +92,6 @@ describe("/sessions", () => {
       .send(mockedTeacherInvalidLogin);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(403);
   });
 });

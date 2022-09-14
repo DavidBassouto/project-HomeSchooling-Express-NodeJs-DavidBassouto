@@ -11,8 +11,8 @@ const routes = Router();
 export const studentsRoutes = () => {
   routes.post("/login", studentLoginController);
   routes.get("", listAllStudentsController);
-  routes.get("/me", ensureAuthMiddleware, listStudentAndClassController);
+  routes.get("/me", listStudentAndClassController);
   routes.patch("/:studentId", ensureAuthMiddleware, updateStudentController);
-  routes.delete("/:studentId", ensureAuthMiddleware, deleteStudentController)
+  routes.delete("/:studentId", ensureAuthMiddleware, deleteStudentController);
   return routes;
 };

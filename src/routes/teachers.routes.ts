@@ -13,14 +13,23 @@ import verifyIdMiddleware from "../middlewares/verifyId.middleware";
 const routes = Router();
 
 export const teacherRoutes = () => {
+  routes.post("", teacherCreateController);
+  routes.post("/login", teacherLonginController);
+  routes.get("", teacherListAllController);
+  routes.get("/:id", ensureAuthMiddleware, teacherListByIdController);
+  routes.delete(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    teacherDeleteController
+  );
+  routes.patch(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    teacherUpdateController
+  );
+  routes.post("/:id", ensureAuthMiddleware, teacherAddStudentController);
 
-    routes.post("", teacherCreateController)
-    routes.post("/login", teacherLonginController)
-    routes.get("", teacherListAllController)
-    routes.get("/:id",ensureAuthMiddleware, teacherListByIdController)
-    routes.delete("/:id", ensureAuthMiddleware,verifyIdMiddleware, teacherDeleteController)
-    routes.patch("/:id",ensureAuthMiddleware, teacherUpdateController)
-    routes.post("/:id",ensureAuthMiddleware, teacherAddStudentController)
-
-    return routes
-}
+  return routes;
+};
