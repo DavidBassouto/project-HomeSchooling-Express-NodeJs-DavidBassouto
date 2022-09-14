@@ -37,7 +37,7 @@ class Student {
   @Column({ default: true })
   isActive: boolean;
 
-  @ManyToOne(() => Guardian)
+  @ManyToOne(() => Guardian, { onDelete: "CASCADE" })
   guardian: Guardian;
 }
 

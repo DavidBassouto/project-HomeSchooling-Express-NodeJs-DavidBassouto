@@ -9,9 +9,9 @@ const routes = Router();
 
 export const classesRoutes = () => {
   routes.post("", ensureAuthMiddleware, createClassController);
-  routes.get("", classesListAllController)
-  routes.get("/:id", classListByIdController)
-  routes.delete("/:id", classDeleteController)
+  routes.get("", ensureAuthMiddleware, classesListAllController);
+  routes.get("/:id", ensureAuthMiddleware, classListByIdController);
+  routes.delete("/:id", ensureAuthMiddleware, classDeleteController);
 
   return routes;
 };
