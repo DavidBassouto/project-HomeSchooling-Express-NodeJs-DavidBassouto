@@ -8,13 +8,13 @@ export const teacherAddStudentController = async (
   res: Response
 ) => {
   try {
-    const { studentEmail } = req.body;
+    const { email } = req.body;
     const { classId } = req.params;
     const { id } = req.user;
 
     const studentAddedToTheCLassroom = await teacherAddStudentService(
       classId,
-      studentEmail,
+      email,
       id
     );
 

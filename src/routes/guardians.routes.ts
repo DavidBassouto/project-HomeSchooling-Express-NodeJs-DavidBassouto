@@ -14,8 +14,18 @@ const routes = Router();
 export const guardianRoutes = () => {
   routes.post("", createGuardianController);
   routes.post("/login", createGuardianSessionController);
-  routes.patch("/:id", ensureAuthMiddleware, updateGuardianController);
-  routes.delete("/:id", ensureAuthMiddleware, deleteGuardianController);
+  routes.patch(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    updateGuardianController
+  );
+  routes.delete(
+    "/:id",
+    ensureAuthMiddleware,
+    verifyIdMiddleware,
+    deleteGuardianController
+  );
   routes.post("/students", ensureAuthMiddleware, createStudentController);
   routes.get("", listAllGuardiansController);
   routes.get(

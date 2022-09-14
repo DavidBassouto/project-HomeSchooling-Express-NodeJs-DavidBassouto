@@ -7,13 +7,13 @@ const deleteGuardianController = async (req: Request, res: Response) => {
 
     const id = req.params.id
 
-    if(!id){
-        throw new AppError(404, "Guardian not found")
-    }
+    // if(!id){
+    //     throw new AppError(404, "Guardian not found")
+    // }
     
     const guardianDeleted = await deleteGuardianService(id)
 
-    return res.status(200).json({ message: "Guardian deleted with sucess!" });
+    return res.status(204).json({ message: "Guardian deleted with sucess!" });
 
 }
 
