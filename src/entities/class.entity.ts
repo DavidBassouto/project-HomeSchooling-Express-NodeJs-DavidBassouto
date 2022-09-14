@@ -24,10 +24,10 @@ class Class {
   @Column({ default: true })
   isOpen: boolean;
 
-  @ManyToOne(() => Teacher, {eager: true})
+  @ManyToOne(() => Teacher, { eager: true, onDelete: "CASCADE" })
   teacher: Teacher;
 
-  @ManyToMany(() => Student, {eager: true})
+  @ManyToMany(() => Student, { eager: true })
   @JoinTable()
   students: Student[];
 }

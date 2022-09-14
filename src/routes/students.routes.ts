@@ -13,6 +13,6 @@ export const studentsRoutes = () => {
   routes.get("", listAllStudentsController);
   routes.get("/me", ensureAuthMiddleware, listStudentAndClassController);
   routes.patch("/:studentId", ensureAuthMiddleware, updateStudentController);
-
+  routes.delete("/:studentId", ensureAuthMiddleware, deleteStudentController)
   return routes;
 };
