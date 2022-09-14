@@ -7,9 +7,8 @@ export const teacherUpdateController = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    const userId = req.user.id;
 
-    const updatedTeacher = await teacherUpdateService(id, data, userId);
+    const updatedTeacher = await teacherUpdateService(id, data);
 
     return res.status(200).send(instanceToPlain(updatedTeacher));
   } catch (err) {

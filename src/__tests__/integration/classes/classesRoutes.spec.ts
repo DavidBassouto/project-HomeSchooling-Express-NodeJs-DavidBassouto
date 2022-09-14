@@ -23,8 +23,8 @@ describe("/classes", () => {
         console.error("Error during Data Source initialization", err);
       });
 
-    await request(app).post("/teacher").send(mockedTeacher);
-    await request(app).post("/teacher").send(mockedSecondTeacher);
+    await request(app).post("/teachers").send(mockedTeacher);
+    await request(app).post("/teachers").send(mockedSecondTeacher);
   });
 
   afterAll(async () => {
@@ -45,7 +45,7 @@ describe("/classes", () => {
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("hour");
     expect(response.body).toHaveProperty("isOpen");
-    expect(response.body.isOpen).toEqual("true");
+    expect(response.body.isOpen).toEqual(true);
     expect(response.status).toBe(201);
   });
 
@@ -68,8 +68,13 @@ describe("/classes", () => {
       .get("/classes")
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty("classes");
-    expect(response.status).toBe(201);
+    expect(response.body[0]).toHaveProperty("id");
+    expect(response.body[0]).toHaveProperty("name");
+    expect(response.body[0]).toHaveProperty("hour");
+    expect(response.body[0]).toHaveProperty("isOpen");
+    expect(response.body[0]).toHaveProperty("teacher");
+    expect(response.body[0].teacher).not.toHaveProperty("password");
+    expect(response.status).toBe(200);
   });
 
   test("GET /classes -  Should not be able to list all classes with unauthorized token", async () => {
@@ -94,8 +99,13 @@ describe("/classes", () => {
       .get("/classes/" + classes.body[0].id)
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
-    expect(response.body).toHaveProperty("classes");
-    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty("id");
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("hour");
+    expect(response.body).toHaveProperty("isOpen");
+    expect(response.body).toHaveProperty("teacher");
+    expect(response.body.teacher).not.toHaveProperty("password");
+    expect(response.status).toBe(200);
   });
 
   test("GET /classes/:idClass -  Should not be able to list a class with unauthorized token", async () => {
@@ -130,7 +140,7 @@ describe("/classes", () => {
 
   test("PATCH /classes/:idClass -  Must be able to update a class", async () => {
     const teacherLoginResponse = await request(app)
-      .post("/classes/login")
+      .post("/teachers/login")
       .send(mockedTeacherLogin);
 
     const classes = await request(app)
@@ -146,8 +156,8 @@ describe("/classes", () => {
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("hour");
     expect(response.body).toHaveProperty("isOpen");
-    expect(response.body.isOpen).toEqual("false");
-    expect(response.status).toBe(201);
+    expect(response.body.isOpen).toEqual(false);
+    expect(response.status).toBe(200);
   });
 
   test("PATCH /classes/:idClass -  Should not be able a teacher update a different class", async () => {
@@ -160,7 +170,7 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     const response = await request(app)
-      .patch("/classes/" + classes.body[0].id)
+      .patch("/classes/" + classes.body.id)
       .send(mockedUpdateClass)
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
@@ -179,7 +189,7 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
   });
 
   test("PATCH /classes/:idClass -  Should not be able to update a class with unauthorized token", async () => {
@@ -192,7 +202,7 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     const response = await request(app)
-      .patch("/classes/" + classes.body[0].id)
+      .patch("/classes/" + classes.body.id)
       .send(mockedUpdateClass)
       .set("Authorization", `Bearer`);
 
@@ -210,7 +220,7 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     const response = await request(app)
-      .delete("/classes/" + classes.body[0].id)
+      .delete("/classes/" + classes.body.id)
       .set("Authorization", `Bearer`);
 
     expect(response.body).toHaveProperty("message");
@@ -227,7 +237,7 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(404);
+    expect(response.status).toBe(401);
   });
 
   test("DELETE /classes/:idClass -  Should not be able a teacher delete a different class", async () => {
@@ -240,28 +250,10 @@ describe("/classes", () => {
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     const response = await request(app)
-      .delete("/classes/" + classes.body[0].id)
+      .delete("/classes/" + classes.body.id)
       .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
 
     expect(response.body).toHaveProperty("message");
     expect(response.status).toBe(401);
-  });
-
-  test("PATCH /classes/:idClass -  Must be able to update a class", async () => {
-    const teacherLoginResponse = await request(app)
-      .post("/classes/login")
-      .send(mockedTeacherLogin);
-
-    const classes = await request(app)
-      .get("/classes")
-      .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
-
-    const response = await request(app)
-      .delete("/classes/" + classes.body[0].id)
-      .send(mockedUpdateClass)
-      .set("Authorization", `Bearer ${teacherLoginResponse.body.token}`);
-
-    expect(response.body).toHaveProperty("message");
-    expect(response.status).toBe(200);
   });
 });
