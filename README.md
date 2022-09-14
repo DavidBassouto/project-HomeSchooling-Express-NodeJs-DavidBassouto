@@ -11,7 +11,7 @@
 
 **Output**
 
-```
+```JSON
 [
 	{
 		"id": "ae32d78c-8153-41ef-ae01-6fa7f8985405",
@@ -45,7 +45,7 @@
 
 **Output**
 
-```
+```JSON
 	{
 		"id": "ae32d78c-8153-41ef-ae01-6fa7f8985405",
 		"name": "Cláudio",
