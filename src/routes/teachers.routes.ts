@@ -16,9 +16,9 @@ export const teacherRoutes = () => {
     routes.post("", teacherCreateController)
     routes.post("/login", teacherLonginController)
     routes.get("", teacherListAllController)
-    routes.get("/:id", teacherListByIdController)
-    routes.delete("/:id", teacherDeleteController)
-    routes.patch("/:id", teacherUpdateController)
+    routes.get("/:id",ensureAuthMiddleware, teacherListByIdController)
+    routes.delete("/:id", ensureAuthMiddleware, teacherDeleteController)
+    routes.patch("/:id",ensureAuthMiddleware, teacherUpdateController)
     routes.post("/:id",ensureAuthMiddleware, teacherAddStudentController)
 
     return routes
