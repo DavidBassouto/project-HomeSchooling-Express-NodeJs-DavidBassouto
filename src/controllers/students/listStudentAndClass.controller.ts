@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { instanceToPlain } from "class-transformer";
-import listStudentAndClassService from "../../services/guardians/listStudentAndClass.service";
+import listStudentAndClassService from "../../services/students/listStudentAndClass.service";
 
 
 const listStudentAndClassController = async (req: Request, res: Response) => {

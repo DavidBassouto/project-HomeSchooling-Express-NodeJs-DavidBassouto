@@ -1,6 +1,6 @@
 import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
-import updateStudentService from "../../services/guardians/updateStudent.service";
+import updateStudentService from "../../services/students/updateStudent.service";
 
 const updateStudentController = async (req: Request, res: Response) => {
   const { studentId } = req.params;

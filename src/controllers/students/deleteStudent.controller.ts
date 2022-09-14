@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import deleteStudentService from "../../services/guardians/deleteStudent.service";
+import deleteStudentService from "../../services/students/deleteStudent.service";
 
 const deleteStudentController = async (req: Request, res: Response) => {
   const { id } = req.user;
